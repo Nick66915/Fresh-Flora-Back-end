@@ -1,0 +1,286 @@
+<%- include('../common/header.ejs')%>
+
+<style>
+  /* Style for table */
+
+  th,
+  td {
+    text-align: left;
+    padding: 12px;
+  }
+
+  th {
+    background-color: #27ae60;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    /* border-radius: 10px; */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  /* Style for image */
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* border: 2px solid #2ecc71; */
+  }
+
+  /* Style for table header on hover */
+  th:hover {
+    background-color: #218c5a;
+    cursor: pointer;
+  }
+
+  /* Style for table row on hover */
+  tr:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+
+  /* Style for table row on active */
+  tr.active {
+    background-color: #218c5a;
+    color: white;
+  }
+
+  /* Style for table cell on active */
+  tr.active td {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+  }
+
+  /* Style for table cell on active for the first row */
+  tr.active td:first-child {
+    border-left: 2px solid white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  /* Style for table cell on active for the last row */
+  tr.active td:last-child {
+    border-right: 2px solid white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .container-fluid {
+    width: 100%;
+    height: 100%;
+    margin-top: 15px;
+    padding-right: calc(1.5rem * 0.5);
+    padding-left: calc(1.5rem * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .card-body {
+    -webkit-box-flex: 1;
+    width: 100%;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+    /* color: var(--vz-card-color); */
+  }
+  .avatar-xs {
+    height: 2rem;
+    width: 2rem;
+  }
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+    -webkit-box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+    box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+  }
+  .card {
+    --vz-card-spacer-y: 1rem;
+    --vz-card-spacer-x: 1rem;
+    --vz-card-title-spacer-y: 0.5rem;
+    --vz-card-border-width: 0;
+    --vz-card-border-color: rgba(0, 0, 0, 0.125);
+    --vz-card-border-radius: 0.25rem;
+    --vz-card-box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+    --vz-card-inner-border-radius: 0.25rem;
+    --vz-card-cap-padding-y: 1rem;
+    --vz-card-cap-padding-x: 1rem;
+    --vz-card-cap-bg: #fff;
+    --vz-card-bg: #fff;
+    --vz-card-img-overlay-padding: 1rem;
+    --vz-card-group-margin: 0.75rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--vz-card-height);
+    word-wrap: break-word;
+    background-color: var(--vz-card-bg);
+    background-clip: border-box;
+    border: var(--vz-card-border-width) solid var(--vz-card-border-color);
+    border-radius: var(--vz-card-border-radius);
+  }
+  .card-header:first-child {
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  .card-header {
+    border-bottom: 1px solid #e9ebec;
+  }
+  .align-items-center {
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+  }
+  .d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+  .card-title {
+    font-size: 16px;
+    margin: 0 0 7px 0;
+  }
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  .flex-grow-1 {
+    -webkit-box-flex: 1 !important;
+    -ms-flex-positive: 1 !important;
+    flex-grow: 1 !important;
+  }
+
+  /* table */
+  .table-card {
+    margin: -1rem -1rem;
+  }
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  .align-middle {
+    vertical-align: middle !important;
+  }
+
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--vz-table-color);
+    vertical-align: top;
+    border-color: var(--vz-table-border-color);
+  }
+
+  .my-1 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .text-reset {
+    --vz-text-opacity: 1;
+    padding: 10px;
+    color: inherit !important;
+  }
+</style>
+<section class="home-section">
+    <div class="home-content">
+      <i class="bx bx-menu"></i>
+      <!-- <span class="text">Drop Down Sidebar</span> -->
+
+      <div class="container-fluid">
+  <div class="row"></div>
+
+  <div class="card">
+    <div class="card-header align-items-center d-flex">
+      <h4
+        class="card-title mb-0 flex-grow-1"
+        style="padding: 20px; font-family: inherit"
+      >
+        Best Selling Products
+      </h4>
+      <div class="flex-shrink-0">
+        <div class="dropdown card-header-dropdown">
+          <a
+            class="text-reset dropdown-btn"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <!-- <span class="fw-semibold text-uppercase fs-12"
+                  >Sort by: </span
+                ><span class="text-muted"
+                  >Today<i class="mdi mdi-chevron-down ms-1"></i
+                ></span> -->
+          </a>
+        </div>
+      </div>
+    </div>
+    <!-- end card header -->
+
+    <div class="card-body">
+        <div class="table-responsive table-card">
+            <table
+              class="table table-hover table-centered align-middle table-nowrap mb-0"
+            >
+              <tbody>
+                <%productData.forEach(function(productData){ %>
+
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <div
+                        class="avatar-sm bg-light rounded p-1 me-2"
+                      >
+                        <% if(productData.images){ %>
+                        <img
+                          src="./HomeSlider/<%= productData.images %>"
+                          alt=""
+                          class="avatar-xs rounded-circle"
+                        />
+                        <% } %>
+                      </div>
+                      <div>
+                        <h5 class="fs-14 my-1">
+                          <a
+                           
+                            class="text-reset"
+                            > <%= productData.product_name %></a
+                          >
+                        </h5>
+            
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+               
+                    <span class="text-muted">Price</span>
+                    <h5 class="fs-14 my-1 fw-normal">AED <%=productData.price%></h5>
+                  </td>
+                 
+                </tr>
+
+                <% })%>
+              </tbody>
+            </table>
+          </div>
+
+      <div
+        class="align-items-center mt-4 pt-2 justify-content-between row text-center text-sm-start"
+      >
+        <div class="col-sm"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+
+
+<%- include('../common/footer.ejs')%>

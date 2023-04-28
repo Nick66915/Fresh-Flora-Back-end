@@ -1,0 +1,304 @@
+<%- include('../common/header.ejs')%>
+
+
+
+
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+
+    <div class="container-fluid">
+      <!-- start page title -->
+      <h5 class="card-title mb-0">Add Product</h5>
+
+      
+
+
+   
+      <!-- end page title -->
+
+      <form
+        id="createproduct-form"
+        method="post"
+        action="/edit-product"
+        autocomplete="off"
+        class="needs-validation"
+        enctype="multipart/form-data"
+        novalidate
+      >
+        <div class="flex">
+          <div class="ff-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <div class="flex">
+                  <div class="ff-lg-6">
+                    <div class="mb-3">
+                      <input
+                      type="hidden"
+                      id="id-field"
+                      name="product_id"
+                      value="<%=data._id%>"
+                    />
+                      <label class="form-label" for="product-title-input"
+                        >Product Title</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product-title-input"
+                        value="<%=data.product_name%>"                    
+                        name="product_name"
+                        placeholder="Enter product title"
+                        onchange="myChangeFunction(this)"
+                        required
+                      />                    
+                    </div>
+                  </div>
+                  <div class="ff-lg-6">
+                    <div class="mb-3">
+                      <label class="form-label" for="product-title-input"
+                        >Product Url</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="product_url"
+                        name="product_url"
+                        value="<%=data.product_url%>"
+                        placeholder="Enter product url"
+                        required
+                      />                    
+                    </div>
+                  </div>
+                </div>
+                <div style="display: block;">
+
+                  <label class="form-label">Product Description</label>
+
+                  <textarea style="width: 100%; height: 270px;" id="ckeditor-classic" name="description">
+                    <%=data.description%>
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <!-- end card -->
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Product Gallery</h5>
+              </div>
+              <div class="card-body">
+                <label for="">Image 450*450</label>
+                <div>
+                  <p class="text-muted">Add Product Gallery Images.</p>
+
+                  <input
+                    type="file"
+                    name="image"
+                   
+                   
+                    class="form-control"
+                    
+                    required
+                  />
+
+                  
+                  <!-- end dropzon-preview -->
+                </div>
+              </div>
+            </div>
+            <!-- end card -->
+
+            <!-- end card -->
+            <div class="text-end mb-3">
+              <button type="submit" class="btns btn-success w-sm" style="background-color: #0ab39c ;color:white;">Submit</button>
+            </div>
+          </div>
+          <!-- end col -->
+
+          <div class="ff-lg-4">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Product Categories</h5>
+              </div>
+              <div class="card-body">
+                
+                <select
+                  class="form-select"
+                  id="choices-category-input"
+                  name="categroy_id"
+                  data-choices
+                  data-choices-search-false
+                >
+                  <option value="">Select Product Category</option>
+                  <% for (var i = 0; i < category.length; i++) { %>
+                  <option value="<%= category[i].categoryUrl%>">
+                    <%= category[i].categoryName %>
+                  </option>
+                  <% } %>
+                </select>
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Product Sub Categories</h5>
+              </div>
+              <div class="card-body">            
+                <select
+                  class="form-select"
+                  id="choices-category-input"
+                  name="sub_categroy_idt"
+                  data-choices
+                  data-choices-search-false
+                >
+                  <option value="">Select Product Category</option>
+                  <% for (var i = 0; i < subCategory.length; i++) { %>
+                  <option value="<%= subCategory[i]._id %>">
+                    <%= subCategory[i].sub_category_name %>
+                  </option>
+                  <% } %>
+                </select>
+              </div>
+              <!-- end card body -->
+            </div>
+
+            <!-- end card -->
+
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0">Price</h5>
+              </div>
+              
+              <!-- end card header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div
+                    class="tab-pane active"
+                    id="addproduct-general-info"
+                    role="tabpanel"
+                  >
+                    <!-- end flex -->
+
+                    <div class="flex">
+                      <div class="col-lg-12 col-sm-6">
+                        <div class="mb-3">
+                          
+                      
+                          <div class="input-group has-validation mb-3"  style="padding: 10px;">
+                            <span
+                              class="input-group-text"
+                              id="product-price-addon"
+                             
+                            ></span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="product-price-input"
+                              placeholder="Enter price"
+                              value="<%=data.price%>"
+                              aria-label="Price"
+                              name="price"
+                              aria-describedby="product-price-addon"
+                              required
+                            />
+                           
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- end col -->
+                    </div>
+                    <!-- end flex -->
+                  </div>
+                  <!-- end tab-pane -->
+
+                
+                  <!-- end tab pane -->
+                </div>
+                <!-- end tab content -->
+              </div>
+              <!-- end card body -->
+            </div>
+            <div class="card">
+              
+            
+              <!-- end card header -->
+              <div class="card-body">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">Location</h5>
+                </div>
+                <div class="tab-content">
+                  <div
+                    class="tab-pane active"
+                    id="addproduct-general-info"
+                    role="tabpanel"
+                  >
+                    <!-- end flex -->
+
+                    <div class="flex">
+                      <div class="col-lg-12 col-sm-6">
+                        <div class="mb-3">
+                         
+                          <div class="input-group has-validation mb-3"   style="padding: 10px;">
+                            <span
+                              class="input-group-text"
+                              id="product-price-addon"
+                            
+                            ></span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="product-price-input"
+                              placeholder="Enter Location"
+                              aria-label="Price"
+                              name="location"
+                              value="<%=data.location%>"
+                              aria-describedby="product-price-addon"
+                              required
+                            />
+                           
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- end col -->
+                    </div>
+                    <!-- end flex -->
+                  </div>
+                  <!-- end tab-pane -->
+
+                  <!-- end tab pane -->
+                </div>
+                <!-- end tab content -->
+              </div>
+              <!-- end card body -->
+            </div>
+            <!-- end card -->
+          </div>
+          <!-- end col -->
+        </div>
+        <!-- end flex -->
+      </form>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+
+<script type="text/javascript">
+  function myChangeFunction(customername_field) {
+    var input2 = document.getElementById("product-title-input");
+
+    var title = input2.value.toLowerCase();
+    var res = title.replace(/\s+/g, "-");
+
+    product_url.value = res;
+  }
+</script>
+<%- include('../common/footer.ejs')%>

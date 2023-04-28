@@ -1,0 +1,311 @@
+<%- include('../common/header.ejs')%>
+
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+
+    <div class="container-fluid">
+      <div class="col-lg-12">
+        <div class="card" id="orderList">
+          <div class="card-header border-0">
+            <div class="data align-items-center gy-3">
+              <div class="col-sm">
+                <h5 class="card-title mb-0">Sub Category</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body pt-0">
+            <div>
+              <ul
+                class="nav nav-tabs nav-tabs-custom nav-success mb-3"
+                role="tablist"
+              >
+                <li class="nav-item">
+                  <a
+                    class="nav-link active All py-3"
+                    data-toggle="tab"
+                    id="All"
+                    href="#home1"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    <i class="bx bx-grid-alt me-1 align-bottom"></i> Add
+                   Sub Category
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                                      <a class="nav-link py-3 Cancelled" data-toggle="tab" id="Cancelled" href="#cancelled" role="tab" aria-selected="false">
+                                          <i class="ri-close-circle-line me-1 align-bottom"></i> Cancelled
+                                      </a>
+                                  </li> -->
+              </ul>
+              <form
+              action="/sub-category"
+              method="post"
+              enctype="multipart/form-data"
+              class="tablelist-form"
+              autocomplete="off"
+            >
+              <div class="modal-body">
+                <input type="hidden" id="id-field" />
+                <div class="mb-3">
+                  <label for="customername-field" class="form-label"
+                    >Select Category
+                  </label>
+                  <select
+                    name="category_id"
+                    class="form-select mb-3"
+                    aria-label="Default select example"
+                    required
+                  >
+                    <option selected>select Category</option>
+                    <% for (var i = 0; i < data.length; i++) { %>
+                    <option value="<%= data[i]._id %>">
+                      <%= data[i].categoryName %>
+                    </option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="customername_field" class="form-label"
+                    >Sub-Category Name</label
+                  >
+                  <input
+                    type="text"
+                    id="customername_field"
+                    name="sub_categoryName"
+                    class="form-control"
+                    placeholder="Enter Sub Category Name"
+                    required
+                    onchange="myChangeFunction(this)"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="customername_field" class="form-label"
+                    >Sub Category Url</label
+                  >
+                  <input
+                    type="text"
+                    id="customername_url"
+                    name="sub_categoryUrl"
+                    class="form-control"
+                    placeholder="Enter Sub Category Name"
+                    required
+                    onchange="myChangeFunction(this)"
+                  />
+                </div>
+
+                <div class="mb-3">
+                  <label for="customername-field" class="form-label"
+                    >Sub Category Image</label
+                  >
+                  <input
+                    type="file"
+                    id=""
+                    name="subCategory"
+                    class="form-control"
+                    placeholder="Sub Category url"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="customername-field" class="form-label"
+                    >Sub Category Description</label
+                  >
+                  <textarea
+                    id="customername-field"
+                    name="description"
+                    class="form-control"
+                    placeholder="Sub Category Description"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="hstack gap-2 justify-content-end">
+                  <button
+                    type="button"
+                    class="btns btn-light"
+                    data-dismiss="modal"
+                  >
+                    Cancelled
+                  </button>
+                  <button
+                    type="submit"
+                    class="btns btn-success"
+                    id="add-btn"
+                  >
+                    Add Sub Category
+                  </button>
+                  <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                </div>
+              </div>
+            </form>
+
+              <ul
+                class="nav nav-tabs nav-tabs-custom nav-success mb-3 mt-5"
+                role="tablist"
+              >
+                <li class="nav-item">
+                  <a
+                    class="nav-link active All py-3"
+                    data-toggle="tab"
+                    id="All"
+                    href="#home1"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    <i class="ri-store-2-fill me-1 align-bottom"></i> All
+                   Sub  Category
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                                  <a class="nav-link py-3 Cancelled" data-toggle="tab" id="Cancelled" href="#cancelled" role="tab" aria-selected="false">
+                                      <i class="ri-close-circle-line me-1 align-bottom"></i> Cancelled
+                                  </a>
+                              </li> -->
+              </ul>
+
+              <div class="table-responsive table-card mb-1">
+                <% if (data.length > 0) { %>
+
+                <table class="table table-striped">
+                  <thead class="text-muted table-light">
+                    <tr class="text-uppercase">
+                      <th scope="col" style="width: 25px">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="checkAll"
+                            value="option"
+                          />
+                        </div>
+                      </th>
+
+                      <th class="sort" datart="customer_name">Image</th>
+                      <th class="sort" datart="product_name">
+                        Sub Category Name
+                      </th>
+
+                      <th class="sort" datart="city">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list form-check-all">
+                    <% allsubcate.forEach(function(allsubcate) { %>
+                    <tr>
+                      <th scope="data">
+                        <div class="form-check">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="checkAll"
+                            value="option1"
+                          />
+                        </div>
+                      </th>
+
+                      <td class="customer_name">
+                        <% if(allsubcate.image){ %>
+                        <img
+                          src="./HomeSlider/<%= allsubcate.image %>"
+                          alt=""
+                          class="avatar-xs rounded-circle"
+                        />
+                        <% } %>
+                      </td>
+
+                      <td class="product_name">
+                        <%= allsubcate.sub_category_name %>
+                      </td>
+
+                      <td>
+                        <ul class="list-inline hstack gap-2 mb-0">
+                          <!-- <li class="list-inline-item" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="View">
+                                                                        <a href="apps-ecommerce-order-details.html" class="text-primary d-inline-block">
+                                                                            <i class="ri-eye-fill fs-16"></i>
+                                                                        </a>
+                                                                    </li> -->
+                          <li
+                            class="list-inline-item edit"
+                            data-toggle="tooltip"
+                            data-trigger="hover"
+                            data-placement="top"
+                            title="Edit"
+                          >
+                            <a
+                              href="/edit-sub-category?id=<%=allsubcate._id%>"
+                              class="text-primary d-inline-block edit-item-btn"
+                            >
+                              <i class="ri-pencil-fill fs-16"></i>
+                            </a>
+                          </li>
+                          <li
+                            class="list-inline-item"
+                            data-toggle="tooltip"
+                            data-trigger="hover"
+                            data-placement="top"
+                            title="Remove"
+                          >
+                            <a
+                              class="text-danger d-inline-block remove-item-btn"
+                              href="/delete-sub-catgory?id=<%=allsubcate._id%>"
+                            >
+                              <i class="ri-delete-bin-5-fill fs-16"></i>
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+                <% } else { %>
+                <h3 class="text-center">There are no data.</h3>
+                > <% } %>
+
+                <div class="noresult" style="display: none">
+                  <div class="text-center">
+                    <lord-icon
+                      src="https://cdn.lordicon.com/msoeawqm.json"
+                      trigger="loop"
+                      colors="primary:#405189,secondary:#0ab39c"
+                      style="width: 75px; height: 75px"
+                    ></lord-icon>
+                    <h5 class="mt-2">Sorry! No Result Found</h5>
+                    <p class="text-muted">
+                      We've searched more than 150+ Orders We did not find any
+                      orders for you search.
+                    </p>
+                  </div>
+                </div>
+              </div>
+             
+            </div>
+
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script type="text/javascript">
+  function myChangeFunction(customername_field) {
+    var input2 = document.getElementById("customername_field");
+
+    var title = input2.value.toLowerCase();
+    var res = title.replace(/\s+/g, "-");
+
+    customername_url.value = res;
+  }
+</script>
+
+<%- include('../common/footer.ejs')%>

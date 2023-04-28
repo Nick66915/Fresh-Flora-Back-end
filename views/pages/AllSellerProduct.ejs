@@ -1,0 +1,198 @@
+<%- include('../common/header.ejs')%>
+
+
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+
+    <div class="container-fluid">
+      <div class="flex-12">
+        <div class="card" id="orderList">
+            <div class="card-header">
+                <div class="flex align-items-center">
+                  <div class="col">
+                    <ul
+                      class="nav nav-tabs-custom card-header-tabs border-bottom-0"
+                      role="tablist"
+                    >
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active fw-semibold"
+                          data-bs-toggle="tab"
+                          href="#productnav-all"
+                          role="tab"
+                        >
+                          All
+                          <span
+                            class="badge badge-soft-danger align-middle rounded-pill ms-1"
+                            ><%-productData.length%></span
+                          >
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                </div>
+              </div>
+              <!-- end card header -->
+              <div class="card-body">
+                <div class="tab-content text-muted">
+                  <div
+                    class="tab-pane active"
+                    id="productnav-all"
+                    role="tabpanel"
+                  >
+                    <div
+                      id="table-product-list-all"
+                      class="table-card gridjs-border-none"
+                    >
+                      <% if (productData.length > 0) { %>
+
+                      <table class="table table-striped">
+                        <thead class="text-muted table-light">
+                          <tr class="text-uppercase">
+                            <th scope="col" style="width: 25px">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  id="checkAll"
+                                  value="option"
+                                />
+                              </div>
+                            </th>
+
+                            <th class="sort" datart="customer_name">Image</th>
+                            <th class="sort" datart="product_name">
+                              Product Name
+                            </th>
+                            <th class="sort" datart="product_name">
+                              Status
+                              </th>
+
+                            <th class="sort" datart="city">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody class="list form-check-all">
+                          <% productData.forEach(function(productData) { %>
+                          <tr>
+                            <th scope="data">
+                              <div class="form-check">
+                                <input
+                                  class="form-check-input"
+                                  type="checkbox"
+                                  name="checkAll"
+                                  value="option1"
+                                />
+                              </div>
+                            </th>
+
+                            <td class="customer_name">
+                              <% if(productData.images){ %>
+                              <img
+                                src="./HomeSlider/<%= productData.images %>"
+                                alt=""
+                                class="avatar-xs rounded-circle"
+                              />
+                              <% } %>
+                            </td>
+
+                            <td class="product_name">
+                              <%= productData.product_name %>
+                            </td>
+                            <td class="product_name">
+                                <% if (productData.status === 2) { %>
+                                    <span class="badge text-bg-secondary">Pending</span>
+                                  <% } else if (productData.status === 1) { %>
+                                    <span class="badge text-bg-success">Approved</span>
+                                  <% } else if (productData.status === 0) { %>
+                                    <span class="badge text-bg-danger">Reject</span>
+                                  <% } else { %>
+                                    <p>Invalid status value</p>
+                                  <% } %>
+                            </td>
+
+                            <td>
+                              <ul class="list-inline hstack gap-2 mb-0">
+                           
+                                <li
+                                  class="list-inline-item edit"
+                                  data-toggle="tooltip"
+                                  data-trigger="hover"
+                                  data-placement="top"
+                                  title="Approved"
+                                >
+                                  <a
+                                    href="/approve-product?id=<%=productData._id%>"
+                                    class="text-primary d-inline-block edit-item-btn"
+                                  >
+                                    <i class="ri-check-line fs-16"></i>
+                                  </a>
+                                </li>
+                                <li
+                                  class="list-inline-item edit"
+                                  data-toggle="tooltip"
+                                  data-trigger="hover"
+                                  data-placement="top"
+                                  title="Reject"
+                                >
+                                  <a
+                                    href="/reject-product?id=<%=productData._id%>"
+                                    class="text-primary d-inline-block edit-item-btn"
+                                  >
+                                    <i class="ri-close-circle-line fs-16"></i>
+                                  </a>
+                                </li>
+                                <li
+                                  class="list-inline-item"
+                                  data-toggle="tooltip"
+                                  data-trigger="hover"
+                                  data-placement="top"
+                                  title="Remove"
+                                >
+                                  <a
+                                    class="text-danger d-inline-block remove-item-btn"
+                                    href="/delete-product?id=<%=productData._id%>"
+                                  >
+                                    <i class="ri-delete-bin-5-fill fs-16"></i>
+                                  </a>
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                          <% }); %>
+                        </tbody>
+                      </table>
+                      <% } else { %>
+                      <h3 class="text-center">There are no data.</h3>
+                      <% } %>
+                    </div>
+                  </div>
+                  <!-- end tab pane -->
+
+                  <!-- end tab pane -->
+
+                  <!-- end tab pane -->
+                </div>
+                <!-- end tab content -->
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script type="text/javascript">
+  function myChangeFunction(customername_field) {
+    var input2 = document.getElementById("customername_field");
+
+    var title = input2.value.toLowerCase();
+    var res = title.replace(/\s+/g, "-");
+
+    customername_url.value = res;
+  }
+</script>
+
+<%- include('../common/footer.ejs')%>

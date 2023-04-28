@@ -1,0 +1,51 @@
+<%- include('../common/header.ejs')%>
+
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+    <!-- <span class="text">Drop Down Sidebar</span> -->
+
+    <div class="container-fluid">
+      <div class="flex"></div>
+
+      <form action="/change-admin" method="post">
+        <div class="flex-lg--2">
+          <!--end ff-->
+          <div class="ff-lg-4">
+            <div>
+              <label for="newpasswordInput" class="form-label"
+                >New Password*</label
+              >
+
+              <% console.log(admin)%>
+              <input type="hidden" name="id" value="<%= admin._id%>">
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+                id="newpasswordInput"
+                placeholder="Enter new password"
+              />
+            </div>
+          </div>
+          <!--end ff-->
+          
+          <!--end ff-->
+         
+          <!--end ff-->
+          <div class="ff-lg-12">
+            <div class="text-end">
+              <button type="submit" class="btns btn-success">
+                Change Password
+              </button>
+            </div>
+          </div>
+          <!--end ff-->
+        </div>
+        <!--end row-->
+      </form>
+    </div>
+  </div>
+</section>
+
+<%- include('../common/footer.ejs')%>

@@ -1,0 +1,715 @@
+<%- include('../common/header.ejs')%>
+
+<style>
+  @media (min-width: 992px) {
+    .col-lg-12 {
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+      width: 100%;
+    }
+  }
+
+  /* Style for table */
+
+  th,
+  td {
+    text-align: left;
+    padding: 12px;
+  }
+
+  th {
+    color: rgb(129, 127, 127);
+    font-weight: bold;
+    text-transform: uppercase;
+    /* border-radius: 10px; */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  /* Style for image */
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* border: 2px solid #2ecc71; */
+  }
+
+  /* Style for table header on hover */
+
+  /* Style for table row on hover */
+  tr {
+    background:   #f3f6f9;;
+    cursor: pointer;
+  }
+
+  /* Style for table row on active */
+  tr.active {
+    background-color: #218c5a;
+    color: white;
+  }
+
+  /* Style for table cell on active */
+  tr.active td {
+    border-top: 2px solid white;
+    border-bottom: 2px solid white;
+  }
+
+  /* Style for table cell on active for the first row */
+  tr.active td:first-child {
+    border-left: 2px solid white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
+  /* Style for table cell on active for the last row */
+  tr.active td:last-child {
+    border-right: 2px solid white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+  .container-fluid {
+    width: 100%;
+    height: 100%;
+    margin-top: 15px;
+    padding-right: calc(1.5rem * 0.5);
+    padding-left: calc(1.5rem * 0.5);
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .card-body {
+    -webkit-box-flex: 1;
+    width: 100%;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+    /* color: var(--vz-card-color); */
+  }
+  .avatar-xs {
+    height: 2rem;
+    width: 2rem;
+  }
+  .rounded-circle {
+    border-radius: 50% !important;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+    -webkit-box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+    box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+  }
+  .card {
+    --vz-card-spacer-y: 1rem;
+    --vz-card-spacer-x: 1rem;
+    --vz-card-title-spacer-y: 0.5rem;
+    --vz-card-border-width: 0;
+    --vz-card-border-color: rgba(0, 0, 0, 0.125);
+    --vz-card-border-radius: 0.25rem;
+    --vz-card-box-shadow: 0 1px 2px rgba(56, 65, 74, 0.15);
+    --vz-card-inner-border-radius: 0.25rem;
+    --vz-card-cap-padding-y: 1rem;
+    --vz-card-cap-padding-x: 1rem;
+    --vz-card-cap-bg: #fff;
+    --vz-card-bg: #fff;
+    --vz-card-img-overlay-padding: 1rem;
+    --vz-card-group-margin: 0.75rem;
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--vz-card-height);
+    word-wrap: break-word;
+    background-color: var(--vz-card-bg);
+    background-clip: border-box;
+    border: var(--vz-card-border-width) solid var(--vz-card-border-color);
+    border-radius: var(--vz-card-border-radius);
+  }
+  .card-header:first-child {
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  .card-header {
+    border-bottom: 1px solid #e9ebec;
+  }
+  .align-items-center {
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
+  }
+  .d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+  .card-title {
+    font-size: 16px;
+    margin: 0 0 7px 0;
+    padding: 15px;
+  }
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  .flex-grow-1 {
+    -webkit-box-flex: 1 !important;
+    -ms-flex-positive: 1 !important;
+    flex-grow: 1 !important;
+  }
+
+  /* table */
+  .table-card {
+    margin: -1rem -1rem;
+  }
+  .mb-0 {
+    margin-bottom: 0 !important;
+  }
+  .align-middle {
+    vertical-align: middle !important;
+  }
+
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--vz-table-color);
+    vertical-align: top;
+    border-color: var(--vz-table-border-color);
+  }
+
+  .my-1 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .text-reset {
+    --vz-text-opacity: 1;
+    padding: 10px;
+    color: inherit !important;
+  }
+
+  .nav-tabs {
+    --vz-nav-tabs-link-active-bg: #f3f3f9;
+  }
+  .nav-tabs-custom {
+    border-bottom: 1px solid #e9ebec;
+  }
+  .nav-tabs-custom .nav-item {
+    position: relative;
+  }
+  .nav-success.nav-tabs-custom .nav-link.active {
+    color: #0ab39c;
+    background-color: #fff;
+    font-size: 15px;
+  }
+  .nav-tabs-custom .nav-item .nav-link {
+    border: none;
+    font-weight: 500;
+  }
+
+  .modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 10px;
+  }
+  .mb-3 {
+    margin-bottom: 1rem !important;
+  }
+  .form-label {
+    margin-bottom: 0.5rem;
+  }
+  label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  form {
+    width: 100%;
+  }
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    -webkit-transition: border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .form-control[type="file"]:not(:disabled):not([readonly]) {
+    cursor: pointer;
+  }
+  .form-control[type="file"] {
+    overflow: hidden;
+  }
+
+  .modal-footer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: calc(var(--vz-modal-padding) - var(--vz-modal-footer-gap) * 0.5);
+    background-color: var(--vz-modal-footer-bg);
+    border-top: var(--vz-modal-footer-border-width) solid
+      var(--vz-modal-footer-border-color);
+    border-bottom-right-radius: var(--vz-modal-inner-border-radius);
+    border-bottom-left-radius: var(--vz-modal-inner-border-radius);
+  }
+  .gap-2 {
+    gap: 0.5rem !important;
+  }
+  .justify-content-end {
+    -webkit-box-pack: end !important;
+    -ms-flex-pack: end !important;
+    justify-content: flex-end !important;
+  }
+  .hstack {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+  }
+  [type="button"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  button:not(:disabled) {
+    cursor: pointer;
+  }
+  .btn-light {
+    --vz-btn-color: #000;
+    --vz-btn-bg: #f3f6f9;
+    --vz-btn-border-color: #f3f6f9;
+    --vz-btn-hover-color: #000;
+    --vz-btn-hover-bg: #cfd1d4;
+    --vz-btn-hover-border-color: #c2c5c7;
+    --vz-btn-focus-shadow-rgb: 207, 209, 212;
+    --vz-btn-active-color: #000;
+    --vz-btn-active-bg: #c2c5c7;
+    --vz-btn-active-border-color: #b6b9bb;
+    --vz-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --vz-btn-disabled-color: #000;
+    --vz-btn-disabled-bg: #f3f6f9;
+    --vz-btn-disabled-border-color: #f3f6f9;
+  }
+  .btns {
+    --vz-btn-padding-x: 0.9rem;
+    --vz-btn-padding-y: 0.5rem;
+    --vz-btn-font-size: 0.8125rem;
+    --vz-btn-font-weight: 400;
+    --vz-btn-line-height: 1.5;
+    --vz-btn-color: #212529;
+    --vz-btn-bg: transparent;
+    --vz-btn-border-width: 1px;
+    --vz-btn-border-color: transparent;
+    --vz-btn-border-radius: 0.25rem;
+    --vz-btn-hover-border-color: transparent;
+    --vz-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+      0 1px 1px rgba(0, 0, 0, 0.075);
+    --vz-btn-disabled-opacity: 0.65;
+    --vz-btn-focus-box-shadow: 0 0 0 0 rgba(var(--vz-btn-focus-shadow-rgb), 0.5);
+    display: inline-block;
+    padding: var(--vz-btn-padding-y) var(--vz-btn-padding-x);
+    font-family: var(--vz-btn-font-family);
+    font-size: var(--vz-btn-font-size);
+    font-weight: var(--vz-btn-font-weight);
+    line-height: var(--vz-btn-line-height);
+    color: var(--vz-btn-color);
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: var(--vz-btn-border-width) solid var(--vz-btn-border-color);
+    border-radius: var(--vz-btn-border-radius);
+    background-color: #f3f6f9;
+    -webkit-transition: color 0.15s ease-in-out,
+      background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+  }
+
+  .nav-item a {
+    display: block;
+    text-align: left;
+    text-decoration: none;
+   
+    font-size: 0.9rem;
+    transition: 0.3s;
+  }
+
+  .text-primary {
+    --vz-text-opacity: 1;
+    color: rgba(64,81,137 ,var(--vz-text-opacity))!important;
+}
+.text-danger {
+    --vz-text-opacity: 1;
+    color: rgba(240,101,72,var(--vz-text-opacity))!important;
+}
+
+.text-center{
+  text-align: center;
+}
+
+
+
+ 
+</style>
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+
+    <div class="container-fluid">
+      <div class="col-lg-12">
+        <div class="card" id="orderList">
+          <div class="card-header border-0">
+            <div class="data align-items-center gy-3">
+              <div class="col-sm">
+                <h5 class="card-title mb-0">Category</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body pt-0">
+            <div>
+              <ul
+                class="nav nav-tabs nav-tabs-custom nav-success mb-3"
+                role="tablist"
+              >
+                <li class="nav-item">
+                  <a
+                    class="nav-link active All py-3"
+                    data-toggle="tab"
+                    id="All"
+                    href="#home1"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    <i class="bx bx-grid-alt me-1 align-bottom"></i> Add
+                    Category
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                                      <a class="nav-link py-3 Cancelled" data-toggle="tab" id="Cancelled" href="#cancelled" role="tab" aria-selected="false">
+                                          <i class="ri-close-circle-line me-1 align-bottom"></i> Cancelled
+                                      </a>
+                                  </li> -->
+              </ul>
+              <form
+                action="/add-category"
+                method="post"
+                enctype="multipart/form-data"
+                class="tablelist-form"
+                autocomplete="off"
+              >
+                <div class="modal-body">
+                  <input type="hidden" id="id-field" />
+
+                  <div class="mb-3">
+                    <label for="customername_field" class="form-label"
+                      >Category Name</label
+                    >
+                    <input
+                      type="text"
+                      id="customername_field"
+                      name="categoryName"
+                      class="form-control"
+                      placeholder="Enter Category Name"
+                      required=""
+                      onchange="myChangeFunction(this)"
+                    />
+                  </div>
+                  <input type="hidden" name="category_id" value="" />
+                  <div class="mb-3">
+                    <label for="customername-field" class="form-label"
+                      >Category Url</label
+                    >
+                    <input
+                      type="text"
+                      id="customername_url"
+                      name="category_url"
+                      class="form-control"
+                      placeholder="Category url"
+                      required=""
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="customername-field" class="form-label"
+                      >Category Image</label
+                    >
+                    <input
+                      id="customername-field"
+                      type="file"
+                      name="category_images"
+                      class="form-control"
+                      placeholder="Category Image"
+                      required=""
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="customername-field" class="form-label"
+                      >Category Description</label
+                    >
+                    <textarea
+                      ty=""
+                      id="customername-description"
+                      name="description"
+                      class="form-control"
+                      placeholder="Category Description"
+                      required=""
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <div class="hstack gap-2 justify-content-end">
+                    <button
+                      type="button"
+                      class="btns btn-light"
+                      data-dismiss="modal"
+                    >
+                      Cancelled
+                    </button>
+                    <button
+                      type="submit"
+                      class="btns btn-success"
+                      id="add-btn"
+                      style="background: #0ab39c; color: white"
+                    >
+                      Add Category
+                    </button>
+                    <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                  </div>
+                </div>
+              </form>
+
+              <ul
+                class="nav nav-tabs nav-tabs-custom nav-success mb-3 mt-5"
+                role="tablist"
+              >
+                <li class="nav-item">
+                  <a
+                    class="nav-link active All py-3"
+                    data-toggle="tab"
+                    id="All"
+                    href="#home1"
+                    role="tab"
+                    aria-selected="true"
+                  >
+                    <i class="ri-store-2-fill me-1 align-bottom"></i> All
+                    Category
+                  </a>
+                </li>
+
+                <!-- <li class="nav-item">
+                                  <a class="nav-link py-3 Cancelled" data-toggle="tab" id="Cancelled" href="#cancelled" role="tab" aria-selected="false">
+                                      <i class="ri-close-circle-line me-1 align-bottom"></i> Cancelled
+                                  </a>
+                              </li> -->
+              </ul>
+
+              <div class="table-responsive table-card mb-1">
+
+                <% if (data.length > 0) { %>
+
+                    <table class="table table-striped">
+                        <thead class="text-muted table-light">
+                            <tr class="text-uppercase">
+                              <th scope="col" style="width: 25px">
+                                <div class="form-check">
+                                  <input
+                                    class="form-check-input"
+                                    type="checkbox"
+                                    id="checkAll"
+                                    value="option"
+                                  />
+                                </div>
+                              </th>
+                          
+                              <th class="sort" datart="customer_name">Image</th>
+                              <th class="sort" datart="product_name">
+                                Category Name
+                              </th>
+                             
+      
+                              <th class="sort" datart="city">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody class="list form-check-all">
+                            <% data.forEach(function(data) { %>
+                                <tr>
+                                    <th scope="data">
+                                      <div class="form-check">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          name="checkAll"
+                                          value="option1"
+                                        />
+                                      </div>
+                                    </th>
+                                 
+                                    <td class="customer_name">
+            
+                                        
+                                            <% if(data.image){ %>
+                                                <img src="./HomeSlider/<%= data.image %>" alt="" class="avatar-xs rounded-circle">                          
+                                            <% } %>
+                                          </td>  
+                                        
+                                        
+                                        
+                                        
+                                    <td class="product_name"> <%= data.categoryName %></td>
+                                   
+            
+                                    <td>
+                                      <ul class="list-inline hstack gap-2 mb-0">
+                                        <!-- <li class="list-inline-item" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="View">
+                                                                        <a href="apps-ecommerce-order-details.html" class="text-primary d-inline-block">
+                                                                            <i class="ri-eye-fill fs-16"></i>
+                                                                        </a>
+                                                                    </li> -->
+                                        <li
+                                          class="list-inline-item edit"
+                                          data-toggle="tooltip"
+                                          data-trigger="hover"
+                                          data-placement="top"
+                                          title="Edit"
+                                        >
+                                          <a
+                                            href="/edit-category?id=<%=data._id%>"
+                                            
+                                            class="text-primary d-inline-block edit-item-btn"
+                                          >
+                                            <i class="ri-pencil-fill fs-16"></i>
+                                          </a>
+                                        </li>
+                                        <li
+                                          class="list-inline-item"
+                                          data-toggle="tooltip"
+                                          data-trigger="hover"
+                                          data-placement="top"
+                                          title="Remove"
+                                        >   
+                                          <a
+                                            class="text-danger d-inline-block remove-item-btn"
+                                    
+                                            href="/delete-category?id=<%=data._id%>"
+                                          >
+                                            <i class="ri-delete-bin-5-fill fs-16"></i>
+                                          </a>
+                                        </li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                    <h3 class="text-center">There are no data.</h3>
+                    <% } %>
+             
+
+
+
+
+
+
+
+          
+              <div class="noresult" style="display: none">
+                <div class="text-center">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/msoeawqm.json"
+                    trigger="loop"
+                    colors="primary:#405189,secondary:#0ab39c"
+                    style="width: 75px; height: 75px"
+                  ></lord-icon>
+                  <h5 class="mt-2">Sorry! No Result Found</h5>
+                  <p class="text-muted">
+                    We've searched more than 150+ Orders We did not find any
+                    orders for you search.
+                  </p>
+                </div>
+              </div>
+            </div>
+             
+            </div>
+
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script type="text/javascript">
+  function myChangeFunction(customername_field) {
+    var input2 = document.getElementById("customername_field");
+
+    var title = input2.value.toLowerCase();
+    var res = title.replace(/\s+/g, "-");
+
+    customername_url.value = res;
+  }
+</script>
+
+<%- include('../common/footer.ejs')%>
